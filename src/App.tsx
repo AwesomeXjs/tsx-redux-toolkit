@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useAppDispatch } from './hook'
-import { addTodo } from './store/todoSlice'
+import { addNewTodo, fetchTodos } from './store/todoSlice'
 import NewTodoForm from './components/NewToDoForm'
 import TodoList from './components/ToDoList'
 import './App.css'
@@ -12,10 +12,14 @@ function App() {
 
 	const handleAction = () => {
 		if (text.trim().length) {
-			dispatch(addTodo(text))
+			dispatch(addNewTodo(text))
 			setText('')
 		}
 	}
+
+	useEffect(() => {
+		dispatch(fetchTodos())
+	}, [dispatch])
 
 	return (
 		<div className='App'>
